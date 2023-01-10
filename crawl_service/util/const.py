@@ -1,3 +1,14 @@
+"""
+    px
+    名次列表
+    设置一些常量
+        平台
+        平台 - 比赛
+        vj - status
+        vj - language
+        cf - status
+"""
+
 import os
 from os.path import dirname
 
