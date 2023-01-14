@@ -2,6 +2,12 @@
 
 解读 [宁宁](https://github.com/ConanYu) 的good-guy项目及源码，并注些笔记。
 
+## Makefile
+
+### protobuf
+
+去官网下载protobuf，`make protobuf`构建以下，生成`crawl_service_pb2.py`，`crawl_service_pb2.pyi`，`crawl_service_pb2_grpc.py`三个文件。
+
 ## tree
 
 ```c++
@@ -57,8 +63,8 @@ crawl_service
 ├── tree_crawl_service.txt
 └── util	// util库 工具/功能库
     ├── __init__.py
-    ├── catcher.py
-    ├── config.py	// 配置
+    ├── catcher.py	// 异常捕捉
+    ├── config.py	// crawl service的配置
     ├── const.py	// 名词列表 设置一些常量
     ├── go.py	// 多线程创建 http_service调用
     └── new_session.py
@@ -74,8 +80,8 @@ crawl_service
 requests	// 发送http请求 并返回结果
 cachetools
 readerwriterlock
-grpcio
-grpcio-tools
+grpcio		// grpc-io
+grpcio-tools // grpc-toos
 lxml		// 解析库 支持html和xml
 protobuf
 PyYAML
@@ -88,13 +94,23 @@ gevent
 
 Python 内置了 requests 模块，该模块主要用来发 送 HTTP 请求，requests 模块比 [urllib](https://www.runoob.com/python3/python-urllib.html) 模块更简洁。
 
-见[菜鸟教程-requests](https://www.runoob.com/python3/python-requests.html)
+[菜鸟教程-requests](https://www.runoob.com/python3/python-requests.html)
 
 ### lxml
 
 lxml是python的一个解析库，支持HTML和XML的解析，支持XPath解析方式。
 
 [lxml](https://www.cnblogs.com/mq0036/p/13161350.html)，[lxml安装与使用](http://c.biancheng.net/python_spider/lxml.html)
+
+### grpc
+
+grpcio和grpcio-tools
+
+[RPC框架：从原理到选型，一文带你搞懂RPC](https://www.51cto.com/article/701423.html)
+
+[gRPC 官方文档中文版 V1.0](https://doc.oschina.net/grpc)
+
+[grpc-python](https://doc.oschina.net/grpc?t=60138)
 
 ## crwl_service
 
@@ -127,6 +143,20 @@ logging的基础配置，全局的，先进行init。
 
 ### crawl_service_impl.py
 
+impl：实现
+
+各种func实现抓取，然后把数据返回了
+
+比如`GetRecentContest()`抓了最近比赛信息，搞一搞格式然后返回
+
+~~具体代码不懂~~
+
+### crawl_service_pb2.py
+
+### crawl_service_pb2.pyi
+
+### crawl_service_pb2_grpc.py
+
 ### http_service.py
 
 ### grpc_service.py
@@ -155,11 +185,27 @@ logging的基础配置，全局的，先进行init。
 
 #### config.py
 
+配置 yaml文件
+
+在http_service.py的serve()里给ip和端口（post&port）然后配置
+
+==暂时看不懂这堆配置==
+
 #### const.py
+
+名词列表
+
+设置一些常量
 
 #### new_session.py
 
+使用requests发送http请求的session配置，有http报文首部信息
+
 #### catcher.py
+
+异常捕捉
+
+报一下错，`internal error`接不上。
 
 ### crawler
 
